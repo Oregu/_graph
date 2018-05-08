@@ -1,0 +1,18 @@
+apply plugin: 'java'
+
+repositories {
+  mavenCentral()
+}
+
+dependencies {
+  testImplementation 'junit:junit:4.+'
+}
+
+sourceSets {
+  main {
+    java { srcDirs = ['src'] }
+  }
+  test {
+    java { srcDirs = ['test'] }
+  }
+}
