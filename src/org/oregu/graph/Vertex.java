@@ -2,22 +2,25 @@ package org.oregu.graph;
 
 public class Vertex {
 
+    private final int id;
     private final String label;
     private Vertex next;
 
-    public Vertex(String label) {
+    Vertex(int id, String label) {
+        this.id = id;
         this.label = label;
     }
 
-    public Vertex getNext() {
-        return next;
+    public int id() {
+        return id;
     }
 
-    void setNext(Vertex other) {
-        this.next = other;
+    public String label() {
+        return label;
     }
 
-    public String getLabel() {
+    @Override
+    public String toString() {
         return label;
     }
 }
