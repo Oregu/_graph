@@ -9,7 +9,6 @@ import java.util.Set;
 import java.util.function.Consumer;
 
 import org.oregu.graph.Graph;
-import org.oregu.graph.Vertex;
 
 public class BreadthFirstSearch {
     private final Graph g;
