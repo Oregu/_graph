@@ -6,20 +6,20 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Queue;
 import java.util.Set;
-import java.util.function.Consumer;
+import java.util.function.Function;
 
 import org.oregu.graph.Graph;
 
-public class BreadthFirstSearch {
+public class BreadthFirstSearch implements IAlgorithm {
     private final Graph g;
-    private Set<Integer> discovered;
+    private final Set<Integer> discovered;
 
     public BreadthFirstSearch(Graph g) {
         this.g = g;
         discovered = new HashSet<>(g.size());
     }
 
-    public void run(Consumer<Integer> consumer) {
+    public void run(Function<Integer, Boolean> function) {
         Queue<Integer> stack = new ArrayDeque<>();
         Iterator<Integer> it = g.iterator();
         if (!it.hasNext()) {
@@ -32,7 +32,9 @@ public class BreadthFirstSearch {
 
         while (!stack.isEmpty()) {
             v = stack.remove();
-            consumer.accept(v);
+            if (!function.apply(v)) {
+                return;
+            }
 
             List<Integer> connected = g.edges(v);
             for (Integer vc : connected) {
