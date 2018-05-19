@@ -42,7 +42,7 @@ public class Graph implements Iterable<Integer> {
     }
 
     public int size() {
-        return numVertexes;
+        return numVertexes+1;
     }
 
     @Override
