@@ -23,6 +23,8 @@ public class DepthFirstSearch implements IAlgorithm {
             return; // Empty graph
         }
 
+        // TODO doesn't support multi-component graphs!
+
         Integer start = it.next();
         search(start, function);
     }

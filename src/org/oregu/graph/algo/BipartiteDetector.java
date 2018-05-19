@@ -22,7 +22,7 @@ public class BipartiteDetector implements IDetector {
     }
 
     // TODO solve with BFS.java, instead of reimplementing it.
-    // Need to pass parent vertex to validate colorization.
+    // Pass parent vertex to validate colorization.
 
     @Override
     public boolean test() {
@@ -37,23 +37,27 @@ public class BipartiteDetector implements IDetector {
             return true;
         }
 
-        Iterator<Integer> it = g.iterator();
         Queue<Integer> stack = new ArrayDeque<>();
 
-        Integer v = it.next();
-        stack.add(v);
-        colors.put(v, false);
+        for (Integer v : g) {
+            if (colors.containsKey(v)) {
+                continue;
+            }
 
-        while (!stack.isEmpty()) {
-            v = stack.remove();
+            stack.add(v);
+            colors.put(v, false);
 
-            List<Integer> connected = g.edges(v);
-            for (Integer vc : connected) {
-                if (!colors.containsKey(vc)) {
-                    stack.add(vc);
-                    colors.put(vc, !colors.get(v));
-                } else if (colors.get(vc) == colors.get(v)) {
-                    return false; // Saw a connected vertex with same color.
+            while (!stack.isEmpty()) {
+                v = stack.remove();
+
+                List<Integer> connected = g.edges(v);
+                for (Integer vc : connected) {
+                    if (!colors.containsKey(vc)) {
+                        stack.add(vc);
+                        colors.put(vc, !colors.get(v));
+                    } else if (colors.get(vc) == colors.get(v)) {
+                        return false; // Saw a connected vertex with same color.
+                    }
                 }
             }
         }

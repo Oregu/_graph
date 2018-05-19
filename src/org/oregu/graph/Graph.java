@@ -4,6 +4,10 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Optional;
+import java.util.function.Function;
+
+import static java.util.Collections.emptyList;
 
 public class Graph implements Iterable<Integer> {
     private static final int MAX_V = 1000;
@@ -21,6 +25,10 @@ public class Graph implements Iterable<Integer> {
     }
 
     public void link(int a, int b) {
+        if (edges[a] != null && edges[a].contains(b)) {
+            return;
+        }
+
         if (edges[a] == null) {
             edges[a] = new LinkedList<Integer>();
         }
@@ -43,11 +51,13 @@ public class Graph implements Iterable<Integer> {
     }
 
     public List<Integer> edges(int v) {
-        return Collections.unmodifiableList(edges[v]);
+        return Optional.ofNullable(edges[v])
+                .map((Function<LinkedList, List>) Collections::unmodifiableList)
+                .orElse(emptyList());
     }
 
     private class GraphIterator implements Iterator<Integer> {
-        private int index;
+        private int index = -1;
         private final Graph graph;
 
         public GraphIterator(Graph graph) {
@@ -61,6 +71,7 @@ public class Graph implements Iterable<Integer> {
 
         @Override
         public Integer next() {
+            index++;
             while (edges[index] == null) {
                 index++;
             }

@@ -26,6 +26,8 @@ public class BreadthFirstSearch implements IAlgorithm {
             return;
         }
 
+        // TODO doesn't support multi-component graphs!
+
         Integer v = it.next();
         stack.add(v);
         discovered.add(v);
