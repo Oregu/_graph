@@ -34,8 +34,9 @@ public class ShortestPath {
         for (Integer v : g) {
             List<Integer> connected = g.edges(v);
             for (Integer vc : connected) {
-                if (paths[vc] > paths[v] + 1) {
-                    paths[vc] = paths[v] + 1;
+                int wg = g.weight(v, vc);
+                if (paths[vc] > paths[v] + wg) {
+                    paths[vc] = paths[v] + wg;
                 }
             }
         }
